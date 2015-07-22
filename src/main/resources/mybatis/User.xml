@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.businessoffice.mapper.UserMapper">
+	<resultMap type="com.businessoffice.model.User" id="userMap">
+		<id property="id" column="id" />
+		<result property="name" column="user_name" />
+		<result property="mobile" column="mobile" />
+		<result property="login" column="login" />
+		<result property="password" column="password" />
+		<result property="usable" column="usable" />
+	</resultMap>
+	<select id="selectByPrimaryKey" parameterType="Integer"
+		resultMap="userMap"><![CDATA[  SELECT * from rb_user tmp WHERE tmp.id = #{id} ]]>
+	</select>
+</mapper>

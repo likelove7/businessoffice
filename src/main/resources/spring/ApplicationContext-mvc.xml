@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd	
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!--mvc:annotation-driven/ -->
+	<context:component-scan
+		base-package="com.businessoffice.*" />
+
+	<!-- 默认首页 -->
+	<!--mvc:view-controller path="/" view-name="/front/index"/> <mvc:view-controller 
+		path="/system" view-name="/system/index"/ -->
+	<!-- 使用springmvc里面的拦截器 废弃掉，采用方法级拦截器 -->
+	<!--mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/**/*.html*"/> 
+		<bean class="com.wxltsoft.framework.interceptor.LoginHandlerInterceptor"/> 
+		</mvc:interceptor> <mvc:interceptor> <mvc:mapping path="/system/*.html*"/> 
+		<bean class="com.wxltsoft.framework.interceptor.RightsHandlerInterceptor"/> 
+		</mvc:interceptor> </mvc:interceptors -->
+
+	<!-- springmvc视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 处理JSON数据转换的 -->
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<!-- 为了处理返回的JSON数据的编码，默认是ISO-88859-1的，这里把它设置为UTF-8,解决有乱码的情况 -->
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- freemarker view 配置 暂时不用 -->
+	<!--bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"> 
+		<property name="cache" value="true" /> <property name="prefix" value="" /> 
+		<property name="suffix" value=".ftl" /> <property name="contentType" value="text/html;charset=UTF-8" 
+		/> <property name="viewClass" value="com.wxltsoft.framework.resolver.WxltSoftFreeMarkerView" 
+		/> <property name="requestContextAttribute" value="request" /> <property 
+		name="exposeSpringMacroHelpers" value="true" /> <property name="exposeRequestAttributes" 
+		value="true" /> <property name="exposeSessionAttributes" value="true" /> 
+		</bean -->
+
+
+	<!-- json 默认解析配置 -->
+	<!--bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> 
+		<property name="messageConverters"> <list> <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" 
+		/> </list> </property> </bean -->
+</beans>
